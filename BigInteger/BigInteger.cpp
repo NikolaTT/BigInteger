@@ -4,11 +4,27 @@
 #include <iterator>
 #include <math.h>
 
-BigInteger::BigInteger(std::vector<short> input) : number(input) {}
+BigInteger::BigInteger(std::vector<int> input) : number(input) {}
+
+BigInteger::BigInteger(int input) {
+	if (input == 0) {
+		number.push_back(0);
+	}
+	else {
+		bool isPositive = input > 0;
+		input = abs(input);
+		while (input != 0) {
+			number.push_back(input % 10);
+			input /= 10;
+		}
+		std::reverse(number.begin(), number.end());
+		if (!isPositive) number[0] *= (-1);
+	}	
+}
 
 BigInteger::BigInteger(std::string input) : number(input[0] == '-' ? input.size() - 1 : input.size()){
 	bool negative = false;
-	std::vector<short>::iterator vecIter = number.begin();
+	std::vector<int>::iterator vecIter = number.begin();
 	std::string::iterator stringIter = input.begin();
 
 	if ((*stringIter) == '-') {
@@ -25,7 +41,7 @@ BigInteger::BigInteger(std::string input) : number(input[0] == '-' ? input.size(
 	}
 }
 
-BigInteger::BigInteger(short* array, size_t size) : number(size){
+BigInteger::BigInteger(int* array, size_t size) : number(size){
 	std::copy(array, array + size, number.begin());
 }
 
@@ -52,29 +68,24 @@ bool BigInteger::isNegative() const {
 }
 
 void BigInteger::add(BigInteger rHand) {
-	add(rHand.number);
+	number = add2(number, rHand.number);
 }
 
-
 void BigInteger::subtract(BigInteger rHand) {
-	if (isNegative() && rHand.isNegative()) {
-		std::vector<short> temp = rHand.number;
-		temp[0] *= (-1);
-		number[0] *= (-1);
-		add(temp);
-		number[0] *= (-1);
-	}
-	else {
-		
-	}
+	number = subtract2(number, rHand.number);
 }
 
 void BigInteger::multiply(BigInteger rHand) {
+	if ((number.size() == 1 && number[0] == 0) || (rHand.number.size() == 1 && rHand.number[0] == 0)) {
+		number = std::vector<int>(1);
+	}
 
+	number = multiplyBySingleDigit2(number, rHand.number);
+	
 }
 
 void BigInteger::printNumber() {
-	for (std::vector<short>::iterator iter = number.begin(); iter < number.end(); iter++) {
+	for (std::vector<int>::iterator iter = number.begin(); iter < number.end(); iter++) {
 		std::cout << *iter;
 	}
 }

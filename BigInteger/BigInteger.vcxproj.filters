@@ -18,12 +18,24 @@
     <ClInclude Include="BigInteger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FFT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorAdditionSubtractionMultiplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BigInteger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="FFT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorAdditionSubtractionMultiplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
